@@ -3,11 +3,11 @@ From: openfoam/openfoam5-paraview54:latest
 
 %post
     # Setup a very minimal bashrc file
-    mkdir -p /opt
-    echo 'PS1="Singularity \w> "' > /opt/bashrc
-
-%environment
-    source /opt/openfoam5/etc/bashrc
+    echo 'source /opt/openfoam5/etc/bashrc' > /opt/bashrc
+    echo 'PS1="$WM_PROJECT-$WM_PROJECT_VERSION \W> "' >> /opt/bashrc
+    
+    # Remove the Docker environment definition file which defines $HOME etc
+    mv /.singularity.d/env/10-docker.sh /.singularity.d/env/10-docker.sh_DISABLED
 
 %runscript
     echo "Welcome to the OpenFOAM Singularity container!"
